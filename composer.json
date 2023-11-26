@@ -1,0 +1,17 @@
+{
+    "name": "tsusowake/cron-castle-destroyer",
+    "autoload": {
+        "psr-4": {
+            "tsusowake\\CronCastleDestroyer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "tsusowake",
+            "email": "tsusowake@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "8.1.*"
+    }
+}

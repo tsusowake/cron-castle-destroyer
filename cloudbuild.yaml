@@ -1,0 +1,24 @@
+steps:
+  # see https://cloud.google.com/build/docs/securing-builds/use-secrets?hl=ja#access-non-utf8-secrets
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    args: [ '-c', "gcloud secrets versions access latest --secret=GOOGLE_APPLICATION_CREDENTIALS --format='get(payload.data)' | tr '_-' '/+' | base64 -d > GOOGLE_APPLICATION_CREDENTIALS.json" ]
+
+  # Secret Manager から .env 生成
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - 'get-secrets.sh'
+
+  - name: 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/php/api:latest'
+    args: [ './composer.phar', 'install', '--no-dev' ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build',
+            '-t', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA',
+            '.',
+            '-f', 'Dockerfile'
+    ]
+
+images:
+  - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA'

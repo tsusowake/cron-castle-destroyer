@@ -7,7 +7,7 @@ use CronCastleDestroyer\Lib\Logger\CloudLoggingLogger;
 
 final class CronCastleDestroyer
 {
-    public function main(): void
+    public function run(): void
     {
         $logger = CloudLoggingLogger::getInstance('CronCastleDestroyer');
         $logger->debug("[DEBUG] CronCastleDestroyer: ");

@@ -30,7 +30,7 @@ function main($argv): void
 
     try {
         $logger->info("Start job, jobName: $jobName");
-        $commands[$jobName]->main();
+        $commands[$jobName]->run();
         $logger->info("Start job, jobName: $jobName");
     } catch (\Throwable $e) {
         $logger->error($e->getMessage());

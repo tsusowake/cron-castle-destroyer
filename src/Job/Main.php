@@ -10,6 +10,7 @@ require __DIR__ . '/../../config.php';
 
 function main($argv): void
 {
+    // ジョブの定義, $commands のキーはCloud Runジョブの引数から渡すジョブ名
     $commands = [
         'CronCastleDestroyer' => new CronCastleDestroyer(),
     ];

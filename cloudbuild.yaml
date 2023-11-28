@@ -4,7 +4,8 @@ steps:
     entrypoint: 'bash'
     args: [ '-c', "gcloud secrets versions access latest --secret=GOOGLE_APPLICATION_CREDENTIALS --format='get(payload.data)' | tr '_-' '/+' | base64 -d > GOOGLE_APPLICATION_CREDENTIALS.json" ]
 
-  # Secret Manager から .env 生成
+  # Secret Manager から Secret を取得して .env ファイルを生成する
+  # 既存実装に引きずられている部分なので説明はスキップ
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
